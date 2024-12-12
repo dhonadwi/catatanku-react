@@ -1,30 +1,16 @@
 import React from 'react';
-import NoteItemBody from './NoteItemBody';
-import ButtonDeleteNote from './ButtonDeleteNote';
-import ButtonArchivedNote from './ButtonArchivedNote';
-import ButtonActiveNote from './ButtonActiveNote';
+import Button from './Button';
 
-function NoteItem({
-  status,
-  id,
-  title,
-  createdAt,
-  body,
-  onDelete,
-  onArchived,
-  onActive,
-}) {
+export default function NoteItem({ note, onArchive, onDelete }) {
   return (
     <div className="note-item">
-      <NoteItemBody title={title} createdAt={createdAt} body={body} />
-      <ButtonDeleteNote id={id} onDelete={onDelete} />
-      {!status ? (
-        <ButtonArchivedNote id={id} onArchived={onArchived} />
-      ) : (
-        <ButtonActiveNote id={id} onActive={onActive} />
-      )}
+      <div className="note-item__content">
+        <h3 className="note-item__title">{note.title}</h3>
+        <p className="note-item__date">{note.createdAt}</p>
+        <p className="note-item__body">{note.body}</p>
+      </div>
+      <Button onClick={() => onArchive(note.id)} text={'Pindahkan'} />
+      <Button onClick={() => onDelete(note.id)} text={'Delete'} />
     </div>
   );
 }
-
-export default NoteItem;
